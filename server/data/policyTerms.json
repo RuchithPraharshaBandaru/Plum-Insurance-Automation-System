@@ -99,7 +99,7 @@
       "Doctor's registration number must be visible",
       "Patient details must match policy records"
     ],
-    "submission_timeline_days": 90,
+    "submission_timeline_days": 30,
     "minimum_claim_amount": 500
   },
   "network_hospitals": [
