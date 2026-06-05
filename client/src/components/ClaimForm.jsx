@@ -32,30 +32,55 @@ export default function ClaimForm({ onSubmit, loading, prefillData }) {
         memberName: prefillData.memberName || prev.memberName,
         memberId: prefillData.memberId || prev.memberId || `EMP_${Date.now().toString(36).toUpperCase()}`,
         memberJoinDate: prefillData.memberJoinDate || prev.memberJoinDate,
-        treatmentDate: prefillData.treatmentDate || prev.treatmentDate,
-        claimAmount: prefillData.claimAmount ? String(prefillData.claimAmount) : prev.claimAmount,
-        hospital: prefillData.hospital || prev.hospital,
-        cashlessRequest: prefillData.cashlessRequest ?? prev.cashlessRequest,
-        previousClaimsSameDay: prefillData.previousClaimsSameDay ?? prev.previousClaimsSameDay,
-        doctorName: prefillData.doctorName || prev.doctorName,
-        doctorReg: prefillData.doctorReg || prev.doctorReg,
-        diagnosis: prefillData.diagnosis || prev.diagnosis,
-        treatment: prefillData.treatment || prev.treatment,
+        treatmentDate: prefillData.treatmentDate || '',
+        claimAmount: prefillData.claimAmount ? String(prefillData.claimAmount) : '',
+        hospital: prefillData.hospital || '',
+        cashlessRequest: prefillData.cashlessRequest ?? false,
+        previousClaimsSameDay: prefillData.previousClaimsSameDay ?? 0,
+        doctorName: prefillData.doctorName || '',
+        doctorReg: prefillData.doctorReg || '',
+        diagnosis: prefillData.diagnosis || '',
+        treatment: prefillData.treatment || '',
         medicines: Array.isArray(prefillData.medicines)
           ? prefillData.medicines.join(', ')
-          : prefillData.medicines || prev.medicines,
+          : prefillData.medicines || '',
         procedures: Array.isArray(prefillData.procedures)
           ? prefillData.procedures.join(', ')
-          : prefillData.procedures || prev.procedures,
+          : prefillData.procedures || '',
         tests: Array.isArray(prefillData.tests)
           ? prefillData.tests.join(', ')
-          : prefillData.tests || prev.tests,
-        consultationFee: prefillData.consultationFee ? String(prefillData.consultationFee) : prev.consultationFee,
-        diagnosticTests: prefillData.diagnosticTests ? String(prefillData.diagnosticTests) : prev.diagnosticTests,
-        medicinesCost: prefillData.medicinesCost ? String(prefillData.medicinesCost) : prev.medicinesCost,
-        otherCharges: prefillData.otherCharges ? String(prefillData.otherCharges) : prev.otherCharges,
-        otherChargesLabel: prefillData.otherChargesLabel || prev.otherChargesLabel,
-        rawBillItems: prefillData.rawBillItems || prev.rawBillItems || [],
+          : prefillData.tests || '',
+        consultationFee: prefillData.consultationFee ? String(prefillData.consultationFee) : '',
+        diagnosticTests: prefillData.diagnosticTests ? String(prefillData.diagnosticTests) : '',
+        medicinesCost: prefillData.medicinesCost ? String(prefillData.medicinesCost) : '',
+        otherCharges: prefillData.otherCharges ? String(prefillData.otherCharges) : '',
+        otherChargesLabel: prefillData.otherChargesLabel || '',
+        rawBillItems: prefillData.rawBillItems || [],
+      }));
+    } else {
+      // When prefillData is explicitly null (e.g., when uploading a new document),
+      // we reset all the medical/document fields but preserve the member details
+      // so the user doesn't have to re-type them for consecutive tests.
+      setForm(prev => ({
+        ...prev,
+        treatmentDate: '',
+        claimAmount: '',
+        hospital: '',
+        cashlessRequest: false,
+        previousClaimsSameDay: 0,
+        doctorName: '',
+        doctorReg: '',
+        diagnosis: '',
+        treatment: '',
+        medicines: '',
+        procedures: '',
+        tests: '',
+        consultationFee: '',
+        diagnosticTests: '',
+        medicinesCost: '',
+        otherCharges: '',
+        otherChargesLabel: '',
+        rawBillItems: [],
       }));
     }
   }, [prefillData]);
