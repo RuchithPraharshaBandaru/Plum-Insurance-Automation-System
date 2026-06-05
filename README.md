@@ -4,41 +4,16 @@ An AI-powered full-stack application that automates the adjudication (approval/r
 
 ## Architecture
 
-```
-React (Vite) Frontend  ←→  Express.js Backend  ←→  MongoDB
-                                  ↓
-                          Google Gemini API (LLM)
-```
+- **Frontend**: React (Vite) with custom glassmorphism CSS
+- **Backend**: Node.js & Express.js
+- **AI/LLM**: Google Gemini 2.0 Flash API (for multimodal document extraction and medical necessity checks)
+- **Database**: Stateless (Uses local JSON files for policy terms and test cases)
 
-### Key Features
+## Setup Instructions
 
-- **5-Step Adjudication Engine** — Rule-based decision logic covering eligibility, document validation, coverage, limits, and medical necessity
-- **AI Document Extraction** — Upload medical documents (images/PDFs) and extract structured data using Gemini
-- **AI Fraud & Anomaly Detection** — LLM detects billing anomalies, medication-diagnosis mismatches, and suspicious patterns
-- **Confidence Score Explainability** — Not just a number; the AI explains WHY the confidence is what it is
-- **RAG-Powered Policy Chatbot** — Floating chat widget lets users ask natural-language questions about their coverage
-- **Illegible Document Handling** — AI explicitly avoids hallucinating data from blurry documents
-- **10 Pre-built Test Cases** — Run TC001–TC010 with one click and compare expected vs actual results
-- **Premium Dark UI** — Glassmorphism design with micro-animations
+### 1. Install Dependencies
 
-### Decision Types
-
-| Decision | Description |
-|----------|-------------|
-| ✅ APPROVED | All checks passed, claim fully covered |
-| ❌ REJECTED | Failed one or more adjudication rules |
-| ⚠️ PARTIAL | Some items covered, some excluded (e.g. cosmetic) |
-| 🔍 MANUAL_REVIEW | Flagged for human review (fraud, high-value, low confidence) |
-
-## Prerequisites
-
-- **Node.js** 18+
-- **MongoDB** (Atlas cloud or local)
-- **Google Gemini API Key** (free tier works) — [Get one here](https://aistudio.google.com/app/apikey)
-
-## Setup & Run
-
-### 1. Clone and install dependencies
+You will need to install the dependencies for both the frontend and backend.
 
 ```bash
 # Install backend dependencies
@@ -50,90 +25,45 @@ cd ../client
 npm install
 ```
 
-### 2. Configure environment variables
+### 2. Configure Environment Variables
 
-```bash
-cd server
-cp .env.example .env
-```
+The application requires a Google Gemini API Key to process document uploads and run the AI medical necessity checks.
 
-Edit `server/.env` with your credentials:
+1. Navigate to the `server` directory.
+2. Create a `.env` file (or copy from `.env.example` if available).
+3. Add your Gemini API key and desired port:
 
 ```env
-MONGODB_URI=mongodb+srv://your_username:your_password@cluster.mongodb.net/plum_opd?retryWrites=true&w=majority
 GEMINI_API_KEY=your_gemini_api_key_here
 PORT=5000
 ```
 
-> **Note:** The application works without the Gemini API key (rule-based only mode), but AI features like fraud detection, confidence reasoning, document extraction, and the policy chatbot require it.
+> **Note:** You can get a free Gemini API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
 
-### 3. Start the application
+### 3. Run the Application
 
+You need to run both the backend server and the frontend development server simultaneously.
+
+**Terminal 1 (Backend):**
 ```bash
-# Terminal 1 — Start backend
 cd server
 npm run dev
+```
 
-# Terminal 2 — Start frontend
+**Terminal 2 (Frontend):**
+```bash
 cd client
 npm run dev
 ```
 
-- **Frontend**: http://localhost:5173
+The application will now be running at:
+- **Frontend UI**: http://localhost:5173
 - **Backend API**: http://localhost:5000/api
-- **Health Check**: http://localhost:5000/api/health
 
-## Pages
+## Documentation
 
-| Page | URL | Description |
-|------|-----|-------------|
-| Submit Claim | `/` | Submit new claims via form or run test cases |
-| Dashboard | `/dashboard` | View all claims with status filters and expandable details |
-| Policy | `/policy` | Browse coverage limits, exclusions, and waiting periods |
-
-## API Endpoints
-
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| `POST` | `/api/claims` | Submit a new claim |
-| `GET` | `/api/claims` | List all claims (supports `?status=` filter) |
-| `GET` | `/api/claims/:id` | Get single claim details |
-| `POST` | `/api/claims/test/:caseId` | Run a test case (TC001–TC010) |
-| `GET` | `/api/policy` | Get full policy terms |
-| `POST` | `/api/policy/chat` | Chat with policy assistant |
-| `GET` | `/api/test-cases` | List available test cases |
-| `GET` | `/api/health` | Server health check |
-
-## Test Cases
-
-| ID | Scenario | Expected Decision |
-|----|----------|-------------------|
-| TC001 | Simple consultation — all valid | ✅ APPROVED (₹1,350) |
-| TC002 | Root canal + teeth whitening | ⚠️ PARTIAL (₹8,000) |
-| TC003 | Amount exceeds per-claim limit | ❌ REJECTED |
-| TC004 | Missing prescription | ❌ REJECTED |
-| TC005 | Diabetes during waiting period | ❌ REJECTED |
-| TC006 | Ayurvedic treatment | ✅ APPROVED (₹4,000) |
-| TC007 | MRI without pre-authorization | ❌ REJECTED |
-| TC008 | Multiple claims same day (fraud) | 🔍 MANUAL_REVIEW |
-| TC009 | Weight loss (excluded) | ❌ REJECTED |
-| TC010 | Network hospital cashless | ✅ APPROVED (₹3,600) |
-
-## Assumptions
-
-1. Policy effective date is 2024-01-01; all members with no explicit join date default to this
-2. Doctor registration format: `[STATE_CODE]/[NUMBER]/[YEAR]` (regex validated)
-3. MRI and CT Scan require pre-authorization when claim > ₹10,000
-4. Co-payment applies only to consultation fees (10%)
-5. Network discount (20%) applies to full claim amount at network hospitals
-6. Claims with 3+ prior claims on the same day are flagged for fraud review
-7. LLM features degrade gracefully when API key is not configured
-8. No user authentication (demo mode)
-
-## Tech Stack
-
-- **Frontend**: React 19 (Vite), React Router, Axios
-- **Backend**: Express.js, Mongoose, Multer, UUID
-- **AI**: Google Gemini 2.0 Flash
-- **Database**: MongoDB
-- **Design**: Custom CSS with glassmorphism, Inter font
+Comprehensive technical documentation can be found in `TECHNICAL_DOCUMENTATION.md`, which includes:
+- Architecture diagrams
+- API specifications
+- Decision logic flowcharts
+- Foundational assumptions and rule limits
