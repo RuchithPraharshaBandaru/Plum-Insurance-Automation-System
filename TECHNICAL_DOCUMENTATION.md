@@ -30,7 +30,7 @@ graph TD
     User((User / Agent))
     
     %% Frontend Components
-    subgraph Frontend [React Frontend (Vite)]
+    subgraph Frontend ["React Frontend (Vite)"]
         UI[Web UI]
         State[React State]
         DocUpload[Document Uploader]
@@ -38,7 +38,7 @@ graph TD
     end
     
     %% Backend Components
-    subgraph Backend [Node.js / Express Backend]
+    subgraph Backend ["Node.js / Express Backend"]
         Router[API Router]
         
         subgraph Services
