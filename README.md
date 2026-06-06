@@ -28,6 +28,14 @@ An AI-powered full-stack application that automates the adjudication (approval/r
 | ⚠️ PARTIAL | Some items covered, some excluded (e.g. cosmetic) |
 | 🔍 MANUAL_REVIEW | Flagged for human review (fraud, high-value, low confidence) |
 
+## Documentation
+
+For deep technical details, please refer to the **`TECHNICAL_DOCUMENTATION.md`**(https://github.com/RuchithPraharshaBandaru/Plum-Insurance-Automation-System/blob/main/TECHNICAL_DOCUMENTATION.md) file, which contains:
+- Complete Architecture & System Flow Diagrams
+- Comprehensive API Endpoint Documentation
+- The 6-Step Decision Logic Flowchart
+- Foundational Assumptions and Policy Rules
+
 ## Prerequisites
 
 - **Node.js** 18+
@@ -87,10 +95,3 @@ npm run dev
 | Dashboard | `/dashboard` | View all claims with status filters and expandable details |
 | Policy | `/policy` | Browse coverage limits, exclusions, and waiting periods |
 
-## Documentation
-
-For deep technical details, please refer to the **`TECHNICAL_DOCUMENTATION.md`**(https://github.com/RuchithPraharshaBandaru/Plum-Insurance-Automation-System/blob/main/TECHNICAL_DOCUMENTATION.md) file, which contains:
-- Complete Architecture & System Flow Diagrams
-- Comprehensive API Endpoint Documentation
-- The 6-Step Decision Logic Flowchart
-- Foundational Assumptions and Policy Rules
