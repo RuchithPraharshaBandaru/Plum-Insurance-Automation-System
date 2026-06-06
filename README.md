@@ -6,7 +6,7 @@ An AI-powered full-stack application that automates the adjudication (approval/r
 
 - **Frontend**: React (Vite) with custom glassmorphism CSS
 - **Backend**: Node.js & Express.js
-- **AI/LLM**: Google Gemini 2.0 Flash API (for multimodal document extraction and medical necessity checks)
+- **AI/LLM**: Google  Flash API (for multimodal document extraction and medical necessity checks)
 - **Database**: Stateless (Uses local JSON files for policy terms and test cases)
 
 ### Key Features
@@ -18,7 +18,6 @@ An AI-powered full-stack application that automates the adjudication (approval/r
 - **RAG-Powered Policy Chatbot** — Floating chat widget lets users ask natural-language questions about their coverage
 - **Illegible Document Handling** — AI explicitly avoids hallucinating data from blurry documents
 - **10 Pre-built Test Cases** — Run TC001–TC010 with one click and compare expected vs actual results
-- **Premium Dark UI** — Glassmorphism design with micro-animations
 
 ### Decision Types
 
